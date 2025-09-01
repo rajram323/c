@@ -115,12 +115,64 @@ for(i=0; i<20; i++)
 ---> Initially i = 0. Since case 0 is true i becomes 5, and since there is no break statement till last statement of switch block, i becomes 16. Before starting the next iteration, i becomes 17 due to i++. Now in next iteration no case is true, so execution goes to default and i becomes 21.
      In C, if one case is true switch block is executed until it finds break statement. If no break statement is present all cases are executed after the true case. If you want to know why switch is implemented like this, well this implementation is useful for situations like below.
 
+########### set 3 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-programs-set-3/
 
+### (11_3.1) ###
+printf("%p", main);
+---> Output: Address of function main. Explanation: Name of the function is actually a pointer variable to the function and prints the address of the function. Symbol table is implemented like this. 
+      struct 
+      {
+         char *name;
+         int (*funcptr)();
+      }
+      symtab[] = {
+         "func", func,
+         "anotherfunc", anotherfunc,
+      };  
 
+### (12_3.2) ###
+printf("\new_c_question\by");
+printf("\rgeeksforgeeks");               // geeksforgeeks 
 
+---> First printf prints "ew_c_questioy". Second printf has \r in it so it goes back to start of the line and starts printing characters.
+     Now try to print following without using any of the escape characters. 
 
+      new c questions by
+      geeksforgeeks
 
+### (13_3.3) ###
+void fun(int *a)
+{
+    a = (int*)malloc(sizeof(int));
+}
 
+int main()
+{
+    int *p;
+    fun(p);
+    *p = 6;
+    printf("%d\n",*p);
+}
+---> It does not work. Try replacing “int *p;” with “int *p = NULL;” and it will try to dereference a null pointer.
+      This is because fun() makes a copy of the pointer, so when malloc() is called, it is setting the copied pointer to the memory location, not p. p is pointing to random memory before and after the call to fun(), and when you dereference it, it will crash.
+      If you want to add memory to a pointer from a function, you need to pass the address of the pointer (ie. double pointer).
+      Thanks to John Doe for providing the correct solution. For better understanding please go through the following link: https://stackoverflow.com/questions/1398307/how-can-i-allocate-memory-and-return-it-via-a-pointer-parameter-to-the-calling
+
+### (14_3.4) ###
+    int i;
+    i = 1, 2, 3;         
+    printf("i = %d\n", i);
+---> The above program prints 1. Associativity of comma operator is from left to right, but = operator has higher precedence than comma operator. 
+      Therefore the statement i = 1, 2, 3 is treated as (i = 1), 2, 3 by the compiler.
+      i = (1, 2, 3);         
+      printf("i  = %d\n", i);
+
+### (15_3.5) ###
+    int first = 50, second = 60, third;
+    third = first /* Will this comment work? */ + second;
+    printf("%d /* And this? */ \n", third);                  // Output: 110 /* And this? */ 
+---> Compiler removes everything between "/*" and "*/" if they are not present inside double quotes ("").
 
 
 
