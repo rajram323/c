@@ -1,4 +1,49 @@
 ########### set 1 ###########
-gfg - https://www.geeksforgeeks.org/cpp/output-of-c-program-set-1/
+gfg - https://www.geeksforgeeks.org/c/output-of-a-program-set-1/
 
 ### (1_1.1) ###
+for(n = 7; n!=0; n--)
+
+---> Above program goes in infinite loop because n is never zero when loop condition (n != 0) is checked.
+
+
+
+### (1_1.2) ###
+
+printf("%x", -1<<1);
+
+---> Output is dependent on the compiler. For 32-bit compiler it would be fffffffe and for 16 bit it would be fffe.
+
+### (1_1.3) ###
+# define scanf  "%s Geeks For Geeks "
+main()
+{
+   printf(scanf, scanf);
+}
+---> Output: %s Geeks For Geeks Geeks For Geeks // After pre-processing phase of compilation, printf statement will become. 
+
+### (1_1.4) ###
+enum {false, true};
+int main()
+{
+   int i = 1;
+   do
+   {
+      printf("%d\n", i);
+      i++;
+      if (i < 15)
+        continue;
+   } while (false);
+
+---> The do while loop checks condition after each iteration. So after continue statement, control transfers to the statement while(false). 
+     Since the condition is false 'i' is printed only once.
+
+### (1_1.5) ###
+char *getString() {
+   char *str = "Nice test for strings";
+   return str;
+}
+
+   printf("%s", getString());
+---> Output: "Nice test for strings" The above program works because string constants are stored in Data Section 
+
