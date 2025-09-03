@@ -328,7 +328,7 @@ int x=3,y=4;
 ########### set 6 ###########
 gfg - https://www.geeksforgeeks.org/c/output-of-c-programs-set-6/
 
-### (22_6.1) ###
+### (26_6.1) ###
  unsigned int i=65000;
     while ( i++ != 0 );
     printf("%d",i);
@@ -338,7 +338,7 @@ gfg - https://www.geeksforgeeks.org/c/output-of-c-programs-set-6/
       But also notice the post-increment operator in the condition of while. So first i will be compared with 0 and i will be incremented no matter whether condition is met or not. Since i is initialized to 65000, it will keep on incrementing till it reaches highest positive value. 
       After that roll over happens, and the value of i becomes zero. The condition is not met, but i would be incremented i.e. to 1. Then printf will print 1
 
-### (23_6.2) ###
+### (27_6.2) ###
 int i=0;
     while ( +(+i--) != 0)
         i-=i++;
@@ -350,7 +350,7 @@ int i=0;
       Since i is initialized to 0, the condition of while will be false at the first iteration itself but i will be decremented to -1. 
       The body of while loop will not be executed. And printf will print -1. So it wasn't that scary as it seemed to be! 
 
-### (23_6.2) ###
+### (28_6.3) ###
 float f=5,g=10;
     enum{i=10,j=20,k=50};
     printf("%d\n",++k);
@@ -362,7 +362,7 @@ float f=5,g=10;
       if want to use 10 anywhere in the program, we can use i instead. In the first printf, the value of k is being modified which is not allowed because it's enum constant. 
       In the second printf, left-shift operator is being applied on a float which is also not allowed. Similarly, in the third printf, modulus operator is being applied on float f and g which is also not allowed.
 
-### (23_7.3) ###
+### (29_6.4) ###
 int main()
 {
     int i=10;
@@ -380,7 +380,7 @@ void pascal f(integer :i,integer:j,integer :k)
      Otherwise, pascal enforces left to right processing of arguments. So even though, the argument processing order can be changed by the use of pascal, 
      we can't use Pascal language routines such as write inside C program. 
 
-### (23_7.4) ###
+### (30_6.5) ###
 void pascal f(int i,int j,int k)
 {
   printf("%d %d %d",i, j, k);
@@ -412,11 +412,81 @@ main()
       So the value of i, j and k inside the first function f will be 10, 11 and 12 respectively while the value of i, j and k inside the second function f will be 12, 11 and 10 respectively. 
 
 
+########### set 7 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-program-set-8/
 
+### (31_7.1) ###
+int i = 0;
+    while (i <= 4)
+    {
+       printf("%d", i);
+       if (i > 3)
+        goto inside_foo;
+       i++;
+    }  
 
+void foo()
+{
+   inside_foo:
+     printf("PP");
+}
 
+---> Compiler error: Label "inside_foo" used but not defined.
+      Explanation: Scope of a label is within a function. We cannot goto a label from other function.
 
+### (32_7.2) ###
+#define a 10
+int main()
+{
+  #define a 50
+  printf("%d",a);            // 50
+}
 
+try :
+  printf("%d ",a);  
+  #define a 50
+  printf("%d ",a);
+
+---> Preprocessor doesn't give any error if we redefine a preprocessor directive. It may give warning though. Preprocessor takes the most recent value before use of and put it in place of a.
+
+### (33_7.3) ###
+char str[] = "geeksforgeeks";
+     char *s1 = str, *s2 = str;     
+     int i;
+     
+     for(i = 0; i < 7; i++)
+     {
+        printf(" %c ", *str);         // g g g g g g g g e e k s f
+        ++s1;     
+     }
+     
+     for(i = 0; i < 6; i++)
+     {
+        printf(" %c ", *s2);
+        ++s2;     
+      }
+
+---> Both s1 and s2 are initialized to str. In first loop str is being printed and s1 is being incremented, so first loop will print only g. 
+      In second loop s2 is incremented and s2 is printed so second loop will print "g e e k s f "
+
+### (34_7.4) ###
+char str[] = "geeksforgeeks";
+    int i;
+    for(i=0; str[i]; i++)
+        printf("\n%c%c%c%c", str[i], *(str+i), *(i+str), i[str]);
+   
+---> Following are different ways of indexing both array and string.
+      arr[i] 
+      *(arr + i) 
+      *(i + arr) 
+      i[arr]
+      So all of them print same character.
+
+### (35_7.5) ###
+    char *p;
+    printf("%d %d ", sizeof(*p), sizeof(p));
+---> Output of the above program depends on compiler. sizeof(*p) gives size of character. If characters are stored as 1 byte then sizeof(*p) gives 1. 
+     sizeof(p) gives the size of pointer variable. If pointer variables are stored as 4 bytes then it gives 4. 
 
 
 
