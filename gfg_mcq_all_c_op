@@ -485,8 +485,84 @@ char str[] = "geeksforgeeks";
 ### (35_7.5) ###
     char *p;
     printf("%d %d ", sizeof(*p), sizeof(p));
+
 ---> Output of the above program depends on compiler. sizeof(*p) gives size of character. If characters are stored as 1 byte then sizeof(*p) gives 1. 
      sizeof(p) gives the size of pointer variable. If pointer variables are stored as 4 bytes then it gives 4. 
+
+########### set 8 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-a-program-set-8/
+
+### (36_8.1) ###
+    int x = 5, p = 10;
+    printf("%*d", x, p);            //  10
+
+
+---> Please see standard printf function definition  
+      int printf ( const char * format, ... );
+      format: String that contains the text to be written to stdout. It can optionally contain embedded format tags that are substituted by the values specified in subsequent argument(s) and formatted as requested. The number of arguments following the format parameters should at least be as much as the number of format tags. The format tags follow this prototype:  
+
+       %[flags][width][.precision][length]specifier
+       You can see details of all above parts here https://cplusplus.com/reference/clibrary/cstdio/printf/.
+      The main thing to note is below the line about precision 
+      * (star): The width is not specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted.
+      
+      In simple words, the value to be printed must have atleast the number of characters corresponding to the width. Here the width is 5, the value to printed is 10. Since it just has two characters, in order to make it 5, three blank spaces will be printed preceding 10
+      So 10 gets printed after 3 spaces!!
+
+### (37_8.2) ###
+   char arr[]  = "geeksforgeeks";
+     char *ptr  = arr;
+   
+     while(*ptr != '\0')
+         ++*ptr++;
+     printf("%s %s", arr, ptr);           // hffltgpshfflt
+
+---> The crust of this question lies in expression ++*ptr++.
+      If one knows the precedence and associativity of the operators then there is nothing much left. Below is the precedence of operators. 
+      
+         Postfix ++             left-to-right
+         Prefix  ++             right-to-left
+         Dereference *          right-to-left
+      
+      Therefore the expression ++*ptr++ has following effect 
+      Value of *ptr is incremented 
+      Value of ptr is incremented
+
+### (38_8.3) ###
+signed char i=0;
+  for(; i >= 0; i++);
+  printf("%d\n", i);         // -128
+
+---> Here, the first thing to be noticed is the semi-colon in the end of for loop. So basically, there's no body for the for loop. 
+      And printf will print the value of i when control comes out of the for loop. 
+      Also, notice that the first statement i.e. initializer in the for loop is not present. 
+      But i has been initialized at the declaration time. Since i is a signed character, it can take value from -128 to 127. So in the for loop, 
+      i will keep incrementing and the condition is met till roll over happens. At the roll over, i will become -128 after 127, in that case condition is not met and control comes out of the for loop.
+
+### (39_8.4) ###
+void fun(const char **p) { }
+int main(int argc, char **argv)
+{
+   fun(argv);            // Compiler error.
+}
+
+---> Parameter passed to fun() and parameter expected in definition are of incompatible types. fun() expects const char** while passed parameter is of type char **.
+      void fun(const char **p) { }
+      int main(int argc, char **argv)
+      {
+         const char **temp;
+         fun(temp);
+      }
+
+
+
+
+
+
+
+
+
+
 
 
 
