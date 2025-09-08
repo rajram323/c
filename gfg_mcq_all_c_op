@@ -554,18 +554,80 @@ int main(int argc, char **argv)
          fun(temp);
       }
 
+########### set 9 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-programs-set-9/
+
+### (40_9.1) ###
+
+int c=5;
+printf("%d\n%d\n%d", c, c <<= 2, c >>= 2);
+
+---> Compiler dependent . The evaluation order of parameters is not defined by the C standard and is dependent on compiler implementation. It is never safe to depend on the order of parameter evaluation. For example, a function call like above may very well behave differently from one compiler to another.
+     References: https://gcc.gnu.org/onlinedocs/gcc/Non_002dbugs.html
+
+### (41_9.2) ###
+
+ char arr[] = {1, 2, 3};
+ char *p = arr;
+ if(&p == (char*) &arr)
+     printf("Same");
+ else
+     printf("Not same");         // Not Same 
+      
+---> &arr is an alias for &arr[0] and returns the address of the first element in the array, but &p returns the address of pointer p. 
+    char arr[] = {1, 2, 3};
+    char *p = arr;
+    if(p == (char*) &arr)
+     printf("Same");
+    else
+     printf("Not same");
+
+### (42_9.3) ###
+
+char arr[] = {1, 2, 3};
+    char *p = arr;
+    printf(" %d ", sizeof(p));
+    printf(" %d ", sizeof(arr));         // 4 3 
+
+---> sizeof(arr) returns the amount of memory used by all elements in array 
+     and sizeof(p) returns the amount of memory used by the pointer variable itself.
+
+### (43_9.4) ###
+
+int x = 0;
+int f() 
+{
+   return x; 
+}
+
+int g() 
+{ 
+   int x = 1; 
+   return f(); 
+}
+
+int main()
+{
+  printf("%d", g());
+  printf("\n");               // 0
 
 
+---> In C, variables are always statically (or lexically) scoped. The binding of x inside f() to global variable x is defined at compile time and not dependent on who is calling it. Hence, the output for the above program will be 0.
+     On a side note, Perl supports both dynamic and static scoping. Perl's keyword "my" defines a statically scoped local variable, while the keyword "local" defines a dynamically scoped local variable. So in Perl, a similar (see below) program will print 1. 
+
+      $x = 0;
+        sub f 
+        { 
+           return $x; 
+        }
+        sub g 
+        { 
+           local $x = 1; return f(); 
+        }
+        print g()."\n";
 
 
+########### set 10 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-program-set-10/
 
-
-
-
-
-
-
-
-
-
-
+### (4_10.1) ###
