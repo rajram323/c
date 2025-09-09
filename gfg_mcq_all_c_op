@@ -663,9 +663,132 @@ typedef int *i;
 typedef static int *i;
   int j;
   i a = &j;    
-  printf("%d", *a);
+  printf("%d", *a);         // 10
 
----> 
+---> References: 
+      https://eecs.uq.edu.au/ 
+      http://publib.boulder.ibm.com/infocenter/macxhelp/v6v81/index.jsp?topic=/com.ibm.vacpp6m.doc/language/ref/clrc03sc03.htm 
+      https://learn.microsoft.com/en-us/cpp/c-language/typedef-declarations?redirectedfrom=MSDN
+
+########### set 11 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-program-set-11/
+
+### (46_11.1) ###
+int fun(int n, int *fg)
+{
+   int t, f;
+   if(n <= 1)
+   {
+     *fg = 1;
+      return 1;
+   }
+   t = fun(n-1, fg);
+   f = t + *fg;
+   *fg = t;
+   return f;
+}
+
+int x = 15;
+printf ( "%d\n", fun (5, &x));
+
+---> In the above program, there will be recursive calls till n is not smaller than or equal to 1.
+
+########### set 12 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-programs-set-12/
+
+### (47_12.1) ###
+
+int fun(char *str1)
+{
+  char *str2 = str1;
+  while(*++str1);
+  return (str1-str2);
+}  
+
+char *str = "geeksforgeeks";
+  printf("%d", fun(str));            // 13
+
+---> Inside fun(), pointer str2 is initialized as str1 and str1 is moved till ‘\0’ is reached (note ; after while loop). So str1 will be incremented by 13 (assuming that char takes 1 byte). 
+
+### (48_12.2) ###
+void fun(int *p)
+{
+  static int q = 10;
+  p = &q;
+} 
+
+int r = 20;
+  int *p = &r;
+  fun(p);
+  printf("%d", *p);         // 20
+
+---> Inside fun(), q is a copy of the pointer p. So if we change q to point something else then p remains unaffected.
+
+### (49_12.3) ###
+void fun(int **p)
+{
+  static int q = 10;
+  *p = &q;
+} 
+
+
+int r = 20;
+  int *p = &r;
+  fun(&p);
+  printf("%d", *p);        // 10
+
+---> Note that we are passing address of p to fun(). p in fun() is actually a pointer to p in main() and we are changing value at p in fun(). 
+      So p of main is changed to point q of fun(). To understand it better, let us rename p in fun() to p_ref or ptr_to_p
+
+      void fun(int **ptr_to_p)
+      {
+        static int q = 10;
+        *ptr_to_p = &q;  /*Now p of main is pointing to q*/
+      }
+
+
+       note that the program won’t cause any problem because q is a static variable. Static variables exist in memory even after functions return. 
+       For an auto variable, we might have seen some weird output because auto variable may not exist in memory after functions return. 
+       Please write comments if you find any of the answers/explanations incorrect, or you want to share more information about the topics discussed above.
+
+
+########### set 13 ###########
+gfg - https://www.geeksforgeeks.org/c/output-of-c-programs-set-13/
+
+### (50_13.1) ###
+
+  char arr[] = "geeksforgeeks";
+  printf("%d", sizeof(arr));         // 14
+
+---> The string “geeksforgeeks” has 13 characters, but the size is 14 because compiler includes a single '\0' (string terminator) when char array size is not explicitly mentioned. 
+      Question 2 In below program, what would you put in place of “?” to print “geeks”. Obviously, something other than “geeks”.
+
+
+### (51_13.2) ###
+
+      char arr[] = "geeksforgeeks";
+      printf("%s", ?);            // (arr+8) 
+
+      The printf statement prints everything starting from arr+8 until it finds ‘\0’
+
+### (52_13.3) ###
+
+  int x, y = 5, z = 5;
+  x = y==z;
+  printf("%d", x);
+
+---> The crux of the question lies in the statement x = y==z. The operator == is executed before = because precedence of comparison operators (<=, >= and ==) is higher than assignment operator =. 
+      The result of a comparison operator is either 0 or 1 based on the comparison result. 
+      Since y is equal to z, value of the expression y == z becomes 1 and the value is assigned to x via the assignment operator.
+
+
+### (52_13.4) ###
+
+printf(" \"GEEKS %% FOR %% GEEKS\"");         // GEEKS % FOR % GEEKS
+
+
+---> Backslash (\) works as escape character for double quote (“). For explanation of %%   
+      ref - https://www.geeksforgeeks.org/c/how-to-print-using-printf/
 
 
 
