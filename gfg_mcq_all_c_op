@@ -631,3 +631,48 @@ int main()
 gfg - https://www.geeksforgeeks.org/c/output-of-c-program-set-10/
 
 ### (4_10.1) ###
+
+typedef int i;
+i a = 0;    
+printf("%d", a);         // 0
+
+
+---> There is no problem with the program. It simply creates a user defined type i and creates a variable a of type i.
+
+### (45_10.2) ###
+
+typedef int *i;
+  int j = 10;
+  i *a = &j;    
+  printf("%d", **a);
+
+
+---> Compiler Error -> Initialization with incompatible pointer type. 
+     The line typedef int *i makes i as type int *. So, the declaration of a means a is pointer to a pointer. The Error message may be different on different compilers. 
+
+###  ###
+typedef int *i;
+  int j = 10;
+  int *p = &j;
+  i *a = &p;    
+  printf("%d", **a);
+
+---> One possible correct solution of this code is in Question 4. 
+
+### (45_10.3) ###
+typedef static int *i;
+  int j;
+  i a = &j;    
+  printf("%d", *a);
+
+---> 
+
+
+
+
+
+
+
+
+
+
